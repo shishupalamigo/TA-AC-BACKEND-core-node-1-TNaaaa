@@ -1,7 +1,10 @@
 
+const os = require('os');
+const {readFile, unlink} = require('fs');
+
+
 console.log('Welcome to Nodejs');
 
-const os = require('os');
 
 let cpus = os.cpus().length;
 console.log(cpus);
@@ -12,9 +15,11 @@ console.log(freeM);
 let upTime = os.uptime();
 console.log(upTime);
 
-const {readFile, unlink} = require('fs');
+let version = os.version();
+console.log(version);
 
-let content = readFile('./content.md', 'utf-8', (content) => {
+
+let content = readFile('./content.md', 'utf-8', (err, content) => {
     console.log(content);``
 });
 
