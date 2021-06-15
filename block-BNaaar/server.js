@@ -7,12 +7,13 @@ function handleRequest (req, res) {
     let parsedUrl = url.parse(req.url);
     let pathName = parsedUrl.pathname;
     if (req.method === 'GET' && pathName === '/') {
-        res.end('Welcome to homepage')
+        res.setHeader('Content-Type', 'text/plain');
+        res.end('Welcome to homepage');
     } else if (req.method === 'GET' && pathName === '/about') {
      res.writeHead(200, {'Content-Type': 'text/html'});
      res.end(`<h2>This is all about NodeJS</h2>`);   
     } else if (req.method === 'POST' && pathName === '/about') {
-        res.writeHead(200, {'Content-Type': 'application/JSON'});
+        res.writeHead(200, {'Content-Type': 'application/json'});
         res.write(`{message: this is a post request}`);
         res.end();
     } else {
