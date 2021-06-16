@@ -54,9 +54,21 @@ html {
 }
 body {
     line-height: 1.5;
+    padding: 2rem;
 }
 h1 {
     font-size: 2rem;
     text-align: center;
-    color: red;
+    color: rgb(5, 51, 15);
+    margin-bottom: 2rem;
+}
+p {
+    font-size: 1.2rem;
+
+}
+.image-container {
+    text-align: center;
+}
+img {
+    width: 20rem;
 }
