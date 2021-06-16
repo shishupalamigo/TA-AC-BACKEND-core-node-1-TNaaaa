@@ -1,5 +1,9 @@
 const http = require('http');
 
+const url = require('url');
+
+const fs = require('fs');
+
 const server = http.createServer(handleRequest);
 function handleRequest(req, res) {
     console.log(req);
@@ -25,9 +29,7 @@ server2.listen(5100, () => {
 const server3 = http.createServer(handleRequest3);
 function handleRequest3(req, res) {
     console.log(req.headers);
-    let headers = req.headers;
-    let userAgent = headers.User-http.Agent;
-    res.end(userAgent);
+    res.end(req.headers['user-agent']);
 };
 
 server3.listen(5555, () => {
@@ -37,10 +39,8 @@ server3.listen(5555, () => {
 const server4 = http.createServer(handleRequest4);
 function handleRequest4(req, res) {
     console.log(req.url,  req.method);
-    let url = req.url;
-    let method =  req.method;
     res.setHeader('Content-Type', 'text/plain');
-    res.end(`${url} ${method}`);
+    res.end(req.method + " " + req.url);
 };
 
 server4.listen(5566, () => {
@@ -49,9 +49,8 @@ server4.listen(5566, () => {
 
 const server5 = http.createServer(handleRequest5);
 function handleRequest5(req, res) {
-    let headers = req.headers;
-    res.setHeader('Content-Type', 'application/json');
-    res.end(`${headers}`);
+    res.setHeader('Content-Type', 'text/plain');
+    res.end(JSON.stringify(req.headers));
 };
 
 server5.listen(7000, () => {
@@ -79,7 +78,7 @@ server7.listen(8000, () => {
     console.log('Server listening on port 8000');
 });
 
-const server8 = http.createServer(handleRequest8);
+ const server8 = http.createServer(handleRequest8);
 function handleRequest8(req, res) {
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.end(`<h3>Welcome to altcampus</h3>`);
@@ -126,11 +125,23 @@ function handleRequest11(req, res) {
     }
     else {
         res.writeHead(404, {'Content-Type': 'text/html'}); 
-        res.end(`<h2>Error 404: Page Not Found`);
+        res.end(`<h2>Error 404: Page Not Found</h2>`);
     }
 };
-
 server11.listen(2345, () => {
     console.log('Server listening on port 2345');
+});
+
+const server13 = http.createServer(handleRequest13);
+function handleRequest13(req, res) {
+  let parsedUrl = url.parse(req.url, true);
+  console.log(parsedUrl.pathname, req.url);
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify(parsedUrl.query))
+};
+
+
+server13.listen(2000, () => {
+    console.log('Server listening on port 2k');
 });
 
